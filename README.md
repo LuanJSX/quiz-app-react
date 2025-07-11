@@ -27,6 +27,7 @@ Um aplicativo de perguntas e respostas sobre **Juiz de Fora (MG)**, desenvolvido
 
 ![Quiz App Screenshot](./screenshot.png)  
 > *Interface simples e intuitiva para jogar em qualquer dispositivo.*
+[video quiz.webm](https://github.com/user-attachments/assets/3062dbdc-bbd5-40a7-afc9-40a42e57ada4)
 
 ---
 

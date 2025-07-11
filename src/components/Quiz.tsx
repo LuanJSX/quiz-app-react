@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Results from "./Results";
 export default function Quiz() {
   const questionBank = [
     {
@@ -34,6 +35,8 @@ export default function Quiz() {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
+ const [isQuizFinished, setQuizFinished] = useState(false);
+
   const selectedAnswer = userAnswers[currentQuestion];
 
   function handleSelectOption(option, key) {
@@ -44,24 +47,39 @@ export default function Quiz() {
   }
 
   function goToNext() {
-    setCurrentQuestion(currentQuestion + 1);
+    if(currentQuestion === questionBank.length - 1) {
+      setQuizFinished(true);
+    }else{
+      setCurrentQuestion(currentQuestion + 1);
+    }
+
   }
 
   function goToPrev() {
     if (currentQuestion > 0) setCurrentQuestion(currentQuestion - 1);
   }
 
+  function restartQuiz () {
+    setUserAnswer(initialAnswer);
+    setCurrentQuestion(0);
+    setQuizFinished(false);
+  }
+
+  if(isQuizFinished) {
+    return<Results userAnswers={userAnswers} questionBank={questionBank} restartQuiz={restartQuiz}/>
+  }
+
   return (
     <div>
-      <h2>Questão 1</h2>
+      <h2>Questão {currentQuestion + 1}</h2>
       <p className="question">{questionBank[currentQuestion].question}</p>
       {questionBank[currentQuestion].options.map((option, key) => (
         <button
           key={key}
-          className={"option" + (selectedAnswer === option ?" selected" : "")}
+          className={"option" + (selectedAnswer === option ? " selected" : "")}
           onClick={() => handleSelectOption(option, key)}
         >
-          {option} 
+          {option}
         </button>
       ))}
 
@@ -70,7 +88,7 @@ export default function Quiz() {
           Anterior
         </button>
         <button onClick={goToNext} disabled={!selectedAnswer}>
-          Proxima
+        {currentQuestion === questionBank.length - 1 ? "Finish Quiz" : "Próximo"}
         </button>
       </div>
     </div>
